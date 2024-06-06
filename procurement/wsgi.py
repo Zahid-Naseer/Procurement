@@ -11,7 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+settings_module = 'procurement.deployment' if 'WEBSITE_HOSTNAME' in os.environ else 'procurement.settings'
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'procurement.settings')
 
 application = get_wsgi_application()
-app = application
