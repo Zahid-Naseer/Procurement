@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="bg-gray-200 text-sm">
+    <div class="container-fluid">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 py-3">
+          <li class="breadcrumb-item"><a class="fw-light" href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item active fw-light" aria-current="page"><a  href="{% url 'mapping'%}"> Mapping </a> </li>
+              <li class="breadcrumb-item active fw-light" aria-current="page">ID assignment</li>
+        </ol>
+      </nav>
+    </div>
+  </div>    
+
+
+  <div class="container">
+  <h2>Map User to Employee</h2>
+    <form method="post" action="{% url 'id_assingment' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Map</button>
+    </form>
+  </div>  
+
+{% endblock %}

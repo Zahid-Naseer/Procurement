@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    
+    <div class="bg-gray-200 text-sm">
+      <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 py-3">
+            <li class="breadcrumb-item"><a class="fw-light" href="/dashboard">Home</a></li>
+            <li class="breadcrumb-item fw-light" aria-current="page"><a class="fw-light" href="{% url 'projects' %}">Project</a> </li>
+            <li class="breadcrumb-item active fw-light" aria-current="page">New Project</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+
+      <br>
+      <form class="narrow-form" action="/" method="post">
+        {% csrf_token %}
+      
+
+        <div class="form-group mt-2">
+          <label for="project_name"><strong>Project Name:</strong></label>
+          <input type="text" style="width: 400px;" class="form-control border-success" id="project_name" name="project_name" maxlength="255" placeholder="Enter Project Name">
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="project_code"><strong>Project Code:</strong></label>
+          <input type="text" class="form-control border-success" style="width: 400px" id="exampleTextarea" maxlength="25" name="project_code"  placeholder="Enter Project Code">
+        </div>
+      
+        <div class="form-group mt-2">
+          <label for="customer"><strong>Customer:</strong></label>
+          <input type="text" style="width: 400px;" class="form-control border-success" id="customer" name="customer" maxlength="255" placeholder="Enter Customer Name">
+        </div>
+      
+        <div class="form-group mt-2">
+          <label for="end_user"><strong>End User:</strong></label>
+          <input type="text" style="width: 400px;" class="form-control border-success" id="end_user" name="end_user" maxlength="255" placeholder="Enter End User (optional)">
+        </div>
+      
+        <div class="mb-3">
+          <label for="proejct_currency" class="form-label"><strong>So Currency<strong></label>
+          <select class="form-select" style="width: 400px;" id="proejct_currency" name="project_currency">
+            <option value="">Select</option>
+            <option value="SAR">SAR</option>
+            <option value="PKR">PKR</option>
+            <option value="USD">USD</option>
+          </select>
+        </div>
+      
+        <div class="form-group mt-2">
+          <label for="currency_rate"><strong>Currency Rate (1US$=?):</strong></label>
+          <input type="number" step="0.01" min="0.01"  style="width: 200px;" class="form-control border-success" id="currency_rate" name="currency_rate" placeholder="Enter Currency Rate">
+        </div>
+      
+        <div class="form-group mt-2">
+          <label for="payment_terms"><strong>Payment Terms (Days):</strong></label>
+          <input type="number" min="1" class="form-control border-success" style="width: 200px;" id="payment_terms" name="payment_terms" placeholder="Enter Payment Terms">
+        </div>
+      
+        <div class="form-group mt-2">
+          <label for="project_manager"><strong>Project Manager:</strong></label>
+          <input type="text" class="form-control border-success" id="project_manager" style="width: 200px;" name="project_manager" maxlength="255" placeholder="Enter Project Manager Name">
+        </div>
+      
+        <div class="form-group mt-2">
+          <label for="company"><strong>Company:</strong></label>
+          <input type="text" class="form-control border-success" id="company" name="company" style="width: 200px;" maxlength="255" placeholder="Enter Company Name (optional)">
+        </div>
+      
+        <div class="form-group mt-2">
+          <label for="address_line_1"><strong>Address Line 1:</strong></label>
+          <input type="text" class="form-control border-success" id="address_line_1" style="width: 500px;" name="address_line_1" maxlength="255" placeholder="Enter Address">
+        </div>
+      
+        <div class="form-group mt-2">
+          <label for="address_line_2"><strong>Address Line 2:</strong></label>
+          <input type="text" class="form-control border-success" id="address_line_2" name="address_line_2" style="width: 500px;" maxlength="255" placeholder="Enter Address (optional)">
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="mobile"><strong>Mobile:</strong></label>
+          <input type="tel" class="form-control border-success" id="mobile" name="mobile" maxlength="20" style="width: 200px;" placeholder="Enter Mobile Number (optional)">
+        </div>
+      
+        <div class="form-group mt-2">
+          <label for="email"><strong>Email:</strong></label>
+          <input type="email" class="form-control border-success" id="email" name="email" style="width: 350px;" placeholder="Enter Email (optional)">
+        </div>
+      
+        <div class="form-group mt-2 " style="width: 400px;">
+          <label for="initial_so_value"><strong>Initial SO Value:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" class="form-control border-success"  style="width: 200px;" id="initial_so_value" name="initial_so_value" placeholder="Enter Initial SO Value">
+            <span class="input-group-text" id="project_currency"></span>
+          </div>
+        </div>
+      
+        <div class="form-group mt-2" style="width: 400px;">
+          <label for="change_order_1"><strong>Change Order 1:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" style="width: 200px;" class="form-control border-success change_order_input" id="change_order_1"  name="change_order_1" placeholder="Enter Change Order 1 Value">
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+
+        <div class="form-group mt-2 " style="width: 400px;">
+          <label for="change_order_2"><strong>Change Order 2:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" style="width: 200px;" class="form-control border-success change_order_input" id="change_order_2" name="change_order_2" placeholder="Enter Change Order 2 Value">
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+
+        <div class="form-group mt-2" style="width: 400px;">
+          <label for="change_order_3"><strong>Change Order 3:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" style="width: 200px;" class="form-control border-success change_order_input" id="change_order_3"  name="change_order_3" placeholder="Enter Change Order 3 Value">
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+
+        <div class="form-group mt-2" style="width: 400px;">
+          <label for="change_order_4"><strong>Change Order 4:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" style="width: 200px;" class="form-control border-success change_order_input" id="change_order_4"  name="change_order_4" placeholder="Enter Change Order 4 Value">
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+        
+      
+      
+        <div class="form-group mt-2" style="width: 400px;">
+          <label for="total_so"><strong>Total SO:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" class="form-control border-success" id="total_so" name="total_so" placeholder="Enter Total SO Value" readonly>
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+      
+        <div class="form-group mt-2" style="width: 400px;">
+          <label for="bid_bom_price"><strong>Bid BOM Price:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" class="form-control border-success" id="bid_bom_price" name="bid_bom_price" placeholder="Enter Bid BOM Price">
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+
+        <div class="form-group mt-2" style="width: 400px;">
+          <label for="bid_cogs"><strong>Bid Cogs:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" class="form-control border-success" id="bid_cogs" name="bid_cogs" placeholder="Enter Bid Cogs">
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+
+        <div class="form-group mt-2" style="width: 400px;">
+          <label for="bid_va"><strong>Bid VA:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" class="form-control border-success" id="bid_va" name="bid_va" placeholder="Enter Bid VA ">
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+
+        <div class="form-group mt-2" style="width: 400px;">
+          <label for="design_cogs"><strong>Design Cogs:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" class="form-control border-success" id="design_cogs" name="design_cogs" placeholder="Enter Design Congs">
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+
+        <div class="form-group mt-2" style="width: 400px;">
+          <label for="design_va"><strong>Design VA:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" class="form-control border-success" id="design_va" name="design_va" placeholder="Enter design_va">
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+        
+        <div class="form-group mt-2" style="width: 400px;">
+          <label for="running_cogs"><strong>Running Cogs:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" class="form-control border-success" id="running_cogs" name="running_cogs" placeholder="Enter Running Cogs">
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+
+        <div class="form-group mt-2" style="width: 400px;">
+          <label for="running_va"><strong>Running VA:</strong></label>
+          <div class="input-group">
+            <input type="number" step="0.01" min="0.01" class="form-control border-success" id="running_va" name="running_va" placeholder="Enter Running VA">
+            <span class="input-group-text" id="project_currency">$</span>
+          </div>
+        </div>
+
+      
+        <div class="form-group mt-2">
+          <button type="submit" formaction="{% url 'newProject' %}" class="btn btn-success mt-2">Save</button>
+          <a href="{% url 'newProject' %}" class="btn btn-success mt-2"> Cancel</a>
+        </div>
+      
+      </form>
+
+      {% comment %} <form class="narrow-form" action="/" method="post">
+        {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleInputPassword1"><strong>Project Name:</strong></label>
+            <input type="text" style="width: 400px;" class="form-control border-success" id="exampleInputPassword1" name = "projectName" placeholder="Enter Project Name">
+          </div>
+          <div class="form-group mt-2">
+            
+            <label for="exampleInputname"><strong>code:</strong></label>
+            <textarea class="form-control border-success" style="width: 1000px;" id="exampleTextarea" name="code" placeholder="Enter Code"></textarea>
+          </div>
+
+          <div class="form-group mt-2">
+            <label for="exampleInputPassword1"><strong>Project Description:</strong></label>
+            <textarea class="form-control border-success" id="exampleTextarea" style="width: 1000px;" name = "projectDesc" placeholder="Enter Project description"></textarea>
+          </div>
+
+          <div class="form-group mt-2">
+            <label for="exampleInputPassword1"><strong>DateOfStart:</strong></label>
+            <input type="date" class="form-control border-success" style="width: 350px;" id="exampleInputPassword1" name = "DateOfStart" placeholder="YY-MM-DD">
+          </div>
+
+          <div class="form-group mt-2">
+            <label for="exampleInputPassword1"><strong>DateOfEnd:</strong></label>
+            <input type="date" class="form-control border-success" style="width: 350px;" id="exampleInputPassword1" name = "DateOfEnd" placeholder="YY-MM-DD">
+          </div>
+          
+          <div class="form-group mt-2">
+            <label for="exampleInputPassword1"><strong>projectValue:</strong></label>
+            <input type="numbers" class="form-control border-success" style="width: 250px;" id="exampleInputPassword1" name = "projectValue" placeholder="Enter project price">
+          </div>
+            
+          
+            <button type="submit" formaction="{% url 'newProject' %}" class="btn btn-success mt-2">Save</button>
+            <a href="newProject" class="btn btn-success mt-2"> Cancel</a>
+          
+        </form> {% endcomment %}
+      </div>  
+
+      <script>
+        document.getElementById('project_currency').innerHTML = '$';  // Replace '$' with your actual currency symbol
+
+        document.addEventListener('DOMContentLoaded', function () {
+          const changeOrderInputs = document.querySelectorAll('.change-order-input'); // Select all elements with class 'change-order-input'
+          const totalSoInput = document.getElementById('total_so');
+        
+          // Function to update total SO value
+          function updateTotalSo() {
+            let totalSo = 0;
+            changeOrderInputs.forEach(input => {
+              const value = parseFloat(input.value) || 0; // Handle empty values
+              totalSo += value;
+            });
+            totalSoInput.value = totalSo.toFixed(2); // Set value with two decimal places
+          }
+        
+          // Update total SO on initial load
+          updateTotalSo();
+        
+          // Update total SO on change of any input field in the 'change-order-input' class
+          changeOrderInputs.forEach(input => input.addEventListener('input', updateTotalSo));
+        });
+      </script>
+{% endblock %}

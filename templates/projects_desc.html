@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <div class="bg-gray-200 text-sm">
+      <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 py-3">
+            <li class="breadcrumb-item"><a class="fw-light" href="/dashboard">Home</a></li>
+            <li class="breadcrumb-item fw-light" aria-current="page"><a class="fw-light" href="{% url 'projects' %}">Project</a> </li>
+            <li class="breadcrumb-item active fw-light" aria-current="page">Project Desc</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- Page Header-->
+    <header class="py-4">
+      <div class="container-fluid py-2">
+        <h1 class="h3 fw-normal mb-0">These are all the projects Description</h1>
+      </div>
+    </header>
+
+    <section class="tables">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header border-bottom">
+                <div class="row align-items-center">
+                  <div class="col-md-6">
+                    <h3 class="h4 mb-0">Projects Data Table</h3>
+                  </div>
+                  <div class="col-md-6 text-md-end"> 
+                    {% if user.userprofile.role.full_access %}
+                    <form method="post" action="{% url 'delete_project' project.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success mt-1">Delete</button>
+                    </form> 
+                    <a href={% url 'edit_projects_desc' project.id %} class="btn btn-success mt-1 padding-left-3">--Edit--</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="col-md-12">
+                    <!-- Project Information -->
+                    <dl class="row">
+                      <dt class="col-sm-4">Project Name:</dt>
+                      <dd class="col-sm-8"><strong>{{ project.project_name }}</strong></dd>
+                      <hr>
+                    {% comment %} {% if  user.userprofile.role.group == "HR" %}
+
+                    <dt class="col-sm-4">Code:</dt>
+                    <dd class="col-sm-8">{{ project.project_code|truncatechars:50 }}  {% if project.project_code|length > 50 %}  <a href="{% url 'project_detail' project.id %}" class="btn btn-primary">View Full Code</a>
+                      {% endif %}</dd>
+<hr>
+                        <dt class="col-sm-4">Projects Value:</dt>
+                        <dd class="col-sm-8">{{ project.projectValue }}$</dd>
+                        <hr>
+                      {% elif user.userprofile.role.group == "Procurement" %}  
+      
+                      <dt class="col-sm-4">Code:</dt>
+                      <dd class="col-sm-8">{{ project.project_code|truncatechars:50 }}  {% if project.project_code|length > 50 %}  <a href="{% url 'project_detail' project.id %}" class="btn btn-primary">View Full Code</a>
+                        {% endif %}</dd>
+                        <hr>
+                        <dt class="col-sm-4">Projects Description:</dt>
+                        <dd class="col-sm-8">{{ project.projectDesc }}</dd>
+                        <hr>
+                        <dt class="col-sm-4">Start Date:</dt>
+                      <dd class="col-sm-8">{{ project.DateOfStart|date:"F d, Y" }}</dd>
+                      <hr>
+                      <dt class="col-sm-4">End Date:</dt>
+                      <dd class="col-sm-8">{{ project.DateOfEnd|date:"F d, Y" }}</dd>
+                        <hr>
+                        <dt class="col-sm-4">Projects Value:</dt>
+                        <dd class="col-sm-8">{{ project.projectValue }}$</dd>
+                        <hr>
+                      {% elif user.userprofile.role.group == "Marketing" %}
+
+                      <dt class="col-sm-4">Start Date:</dt>
+                      <dd class="col-sm-8">{{ project.DateOfStart|date:"F d, Y" }}</dd>
+                      <hr>
+                      <dt class="col-sm-4">End Date:</dt>
+                      <dd class="col-sm-8">{{ project.DateOfEnd|date:"F d, Y" }}</dd>
+                        <hr>
+                       
+                      {% if  user.userprofile.role.full_access  %}
+                      {% endcomment %}
+
+                      <dt class="col-sm-4">Code:</dt>
+                      <dd class="col-sm-8"> {{ project.project_code }}</dd>
+                      <hr>
+
+                      <dt class="col-sm-4">Customer:</dt>
+                      <dd class="col-sm-8">{{ project.customer }}</dd>
+                      <hr>
+
+                      <dt class="col-sm-4">End user:</dt>
+                      <dd class="col-sm-8">{{ project.end_user }}</dd>
+                      <hr>
+
+                      <dt class="col-sm-4">Project Currency:</dt>
+                      <dd class="col-sm-8">{{ project.project_currency }}</dd>
+                      <hr>
+
+                      <dt class="col-sm-4">currency_rate:</dt>
+                      <dd class="col-sm-8">{{ project.currency_rate }}</dd>
+                      <hr>
+
+                      <dt class="col-sm-4">Payment Terms:</dt>
+                      <dd class="col-sm-8">{{ project.payment_terms }}</dd>
+                      <hr>
+
+                      <dt class="col-sm-4">Project Manager:</dt>
+                      <dd class="col-sm-8">{{ project.project_manager }}</dd>
+                      <hr>
+
+
+                      <dt class="col-sm-4">Company:</dt>
+                      <dd class="col-sm-8">{{ project.company}}</dd>
+                      <hr>  
+
+                      <dt class="col-sm-4">Address Line 1:</dt>
+                      <dd class="col-sm-8">{{ project.address_line_1}}</dd>
+                      <hr> 
+
+                      <dt class="col-sm-4">Address Line 2:</dt>
+                      <dd class="col-sm-8">{{ project.address_line_2 }}</dd>
+                      <hr> 
+
+                      <dt class="col-sm-4">Mobile:</dt>
+                      <dd class="col-sm-8">{{ project.mobile }}</dd>
+                      <hr> 
+
+                      <dt class="col-sm-4">Email:</dt>
+                      <dd class="col-sm-8">{{ project.email }}</dd>
+                      <hr> 
+
+                      <dt class="col-sm-4">Initial So Value:</dt>
+                      <dd class="col-sm-8">{{ project.initial_so_value}}</dd>
+                      <hr> 
+
+                      <dt class="col-sm-4">Change Order 1:</dt>
+                      <dd class="col-sm-8">{{ project.change_order_1 }}</dd>
+                      <hr>
+                      
+                      <dt class="col-sm-4">Change Order 2:</dt>
+                      <dd class="col-sm-8">{{ project.change_order_2 }}</dd>
+                      <hr>
+
+                      <dt class="col-sm-4">Change Order 3:</dt>
+                      <dd class="col-sm-8">{{ project.change_order_3 }}</dd>
+                      <hr>
+                      
+                      <dt class="col-sm-4">Change Order 4:</dt>
+                      <dd class="col-sm-8">{{ project.change_order_4 }}</dd>
+                      <hr>
+
+                      <dt class="col-sm-4">Total SO:</dt>
+                      <dd class="col-sm-8">{{ project.total_so }}</dd>
+                      <hr>
+
+                      <dt class="col-sm-4">Bid BOM Price:</dt>
+                      <dd class="col-sm-8">{{ project.bid_bom_price }}</dd>
+                      <hr> 
+
+                      <dt class="col-sm-4">Bid Cogs:</dt>
+                      <dd class="col-sm-8">{{ project.bid_cogs }}</dd>
+                      <hr> 
+
+                      <dt class="col-sm-4">Bid VA:</dt>
+                      <dd class="col-sm-8">{{ project.bid_va }}</dd>
+                      <hr> 
+
+                      <dt class="col-sm-4">Design Cogs:</dt>
+                      <dd class="col-sm-8">{{ project.design_cogs }}</dd>
+                      <hr> 
+
+                      <dt class="col-sm-4">Design VA:</dt>
+                      <dd class="col-sm-8">{{ project.design_va }}</dd>
+                      <hr> 
+
+                      <dt class="col-sm-4">Running Cogs:</dt>
+                      <dd class="col-sm-8">{{ project.running_cogs}}</dd>
+                      <hr> 
+
+                      <dt class="col-sm-4">Running VA:</dt>
+                      <dd class="col-sm-8">{{ project.running_va }}$</dd>
+                      
+                    
+                    {% comment %} {% endif %}   {% endcomment %}
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

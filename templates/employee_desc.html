@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    
+
+    <div class="bg-gray-200 text-sm">
+        <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 py-3">
+            <li class="breadcrumb-item"><a class="fw-light" href="/dashboard">Home</a></li>
+            <li class="breadcrumb-item fw-light" aria-current="page"><a class="fw-light" href="{% url 'employee' %}">Employee pages</a> </li>
+            <li class="breadcrumb-item fw-light" aria-current="page"><a class="fw-light" href="{% url 'edit_employee_desc' employee.id %}">Employee Desc</a> </li>
+            <li class="breadcrumb-item active fw-light" aria-current="page">Employee Edit</li>
+            </ol>
+        </nav>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header border-bottom">
+                <h3 class="h4 mb-0">{{ employee.Fullname }}</h3>
+                </div>
+                <div class="card-body">
+                <p class="text-sm">Change your form setting here.</p>
+                <form method="post" action="{% url 'edit_employee_desc' employee.id %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                    <label class="form-label" for="exampleInputEmail1">Employee ID is : </label> {{employee.id}} <br>
+                    <div class="form-text" id="emailHelp">Best of luck.</div>
+                    </div>
+                    <div class="mb-3">
+                    <label class="form-label" for="exampleInputPassword1">This time Employee Name is : </label> {{employee.Fullname}}<br>
+                    <input type="hidden" name="employee_id" value="{{ employee.id }}">
+                    {{ form.Fullname }}
+                    </div>
+                    <div class="mb-3">
+                    <label class="form-label" for="exampleInputPassword1">This time Employee adress is: </label>{{employee.adress}}<br>
+                    {{form.adress}}
+                    </div>
+                    <div class="mb-3">
+                    <label class="form-label" for="exampleInputPassword1">This time Employee Service is : </label> {{employee.service}}<br>
+                    {{form.service}}
+                    </div>
+                    <div class="mb-3">
+                    <label class="form-label" for="exampleInputPassword1">This time Employee Service is : </label>{{employee.Email}}<br>
+                    {{form.Email}}
+                    </div>
+                    
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+{% endblock %}
