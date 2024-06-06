@@ -1,4 +1,0 @@
-django # Example for Django framework
-requests  # Library for making HTTP requests
-numpy  # Library for numerical computing
-pandas  # Library for data analysis
